@@ -74,7 +74,9 @@ function renderMovies(moviesArr) {
                 href="#movieInfoOffcanvas"
                 aria-controls="movieInfoOffcanvas"
             >
-                <h5 class="movie-title fw-bold mt-2">${movie.title}</h5>
+                <h5 class="movie-title fw-bold mt-2">
+                    ${movie.title} (${movie.release_date.split("-")[0]})
+                </h5>
             </a>
             <p class="movie-tagline text-muted fst-italic">${movie.tagline}</p>
         </div>
