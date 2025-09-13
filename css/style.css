@@ -27,11 +27,10 @@ main {
     height: fit-content;
 }
 
-.cursor-pointer {
-  cursor: pointer;
+.list-group-item {
   transition: transform 0.3s ease;
 }
 
-.cursor-pointer:hover {
+.list-group-item:hover {
   transform: scale(1.01)
 }

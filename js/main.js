@@ -49,7 +49,6 @@ function renderMovies(moviesArr) {
             "justify-content-between",
             "align-items-center",
             "border-black",
-            "cursor-pointer"
         );
         li.innerHTML = `
         <div class="movie-info">
