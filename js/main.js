@@ -87,9 +87,6 @@ function createListItem(movieObj) {
     li.appendChild(infoDiv);
     li.appendChild(ratingDiv);
 
-    // Evento para actualizar el offcanvas al hacer click en la pelicula
-    link.addEventListener("click", () => updateOffcanvas(movieObj));
-
     return li;
 }
 
@@ -158,6 +155,18 @@ async function main() {
     // Busqueda al presionar Enter en el input
     searchInput.addEventListener("keydown", e => {
         if (e.key === "Enter") handleSearch();
+    });
+
+    // Delegación de eventos para abrir el offcanvas al hacer click en el titulo de la pelicula
+    moviesContainer.addEventListener("click", e => {
+        const link = e.target.closest(".movie-link");
+        if (!link) return;
+
+        const movieTitle = link.textContent;
+        const movieObj = moviesData.find(movie => movieTitle.includes(movie.title));
+        if (!movieObj) return;
+
+        updateOffcanvas(movieObj);
     });
 }
 
