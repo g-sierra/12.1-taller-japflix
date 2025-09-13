@@ -113,8 +113,9 @@ async function main() {
     // Carga los datos
     const moviesData = await getData(MOVIES_DATA_URL);
 
+    // Manejo de la busqueda
     const handleSearch = () => {
-        const query = searchInput.value;
+        const query = searchInput.value.trim();
         if (!query) return;
         const results = getSearchedMovies(moviesData, query);
         renderMovies(results);
