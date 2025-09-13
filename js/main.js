@@ -1,9 +1,9 @@
-// DOM variables
+// Elementos DOM
 const searchInput = document.getElementById("inputBuscar");
 const searchBtn = document.getElementById("btnBuscar");
 const moviesContainer = document.getElementById("lista");
 
-// api url
+// API URL
 const MOVIES_DATA_URL = "https://japceibal.github.io/japflix_api/movies-data.json";
 
 async function getData(url) {
@@ -13,11 +13,12 @@ async function getData(url) {
             throw new Error(`Error HTTP: ${res.status}`);
         }
         return await res.json();
-    } catch(e) {
+    } catch (e) {
         console.error("Error al cargar los datos:", e);
     }
 }
 
+// Transforma el rating de 0 a 10 en estrellas
 function renderStars(rating) {
     const maxStars = 5;
     const starRating = rating / 2;
@@ -35,6 +36,7 @@ function renderStars(rating) {
     return html;
 }
 
+// Inserta li con info de cada pelicula
 function renderMovies(moviesArr) {
     moviesContainer.innerHTML = "";
     moviesArr.forEach(movie => {
@@ -62,30 +64,38 @@ function renderMovies(moviesArr) {
     });
 }
 
+// Maneja la busqueda de peliculas
 function getSearchedMovies(moviesArr, query) {
-    const queryLower = query.toLowerCase().trim();
+    const queryLower = query.toLowerCase().trim(); // Lo que busca el usuario
+
+    // Filtra las peliculas que conciden con la query
     const results = moviesArr.filter(movie => {
         const searchTargets = [
             movie.title,
             movie.tagline,
             movie.overview,
-            ...movie.genres.map(genre => genre.name)
+            ...movie.genres.map(genre => genre.name),
         ];
 
         return searchTargets.some(target => target.toLowerCase().includes(queryLower));
-    })
+    });
+
     return results;
 }
 
+// Proceso principal
 async function main() {
+    // Carga los datos
     const moviesData = await getData(MOVIES_DATA_URL);
+
+    // Busqueda al hacer click en el boton Buscar
     searchBtn.addEventListener("click", () => {
         const query = searchInput.value;
         if (!query) return;
         const results = getSearchedMovies(moviesData, query);
         renderMovies(results);
-    })
-
+    });
 }
 
+// Ejecutar el proceso principal al cargar la pagina
 document.addEventListener("DOMContentLoaded", main);
