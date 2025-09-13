@@ -55,6 +55,11 @@ function renderStars(rating) {
     return html;
 }
 
+// Funcion para obtener el año de una pelicula
+function getYear(movieObj) {
+    return movieObj.release_date.split("-")[0];
+}
+
 // Crea elementos li con la info de las peliculas
 function createListItem(movieObj) {
     const li = document.createElement("li");
@@ -79,8 +84,9 @@ function createListItem(movieObj) {
     link.setAttribute("data-movie-id", movieObj.id);
 
     const title = document.createElement("h5");
+    const movieYear = getYear(movieObj);
     title.classList.add("movie-title", "fw-bold", "mt-2");
-    title.textContent = `${movieObj.title} (${movieObj.release_date.split("-")[0]})`;
+    title.textContent = `${movieObj.title} (${movieYear})`;
 
     link.appendChild(title);
 
@@ -139,7 +145,8 @@ function updateOffcanvas(movieObj) {
     movieTitleOffcanvas.textContent = movieObj.title;
     movieOverviewOffcanvas.textContent = movieObj.overview;
     movieGenresOffcanvas.textContent = movieObj.genres.map(genre => genre.name).join(" - ");
-    movieYearOffcanvas.innerHTML = `<span>Year: </span> <span>${movieObj.release_date.split("-")[0]}</span>`;
+    const movieYear = getYear(movieObj);
+    movieYearOffcanvas.innerHTML = `<span>Year: </span> <span>${movieYear}</span>`;
     movieRuntimeOffcanvas.innerHTML = `<span>Runtime: </span> <span>${movieObj.runtime} mins</span>`;
     movieBudgetOffcanvas.innerHTML = `<span>Budget: </span> <span>$${movieObj.budget.toLocaleString()}</span>`;
     movieRevenueOffcanvas.innerHTML = `<span>Revenue: </span> <span>$${movieObj.revenue.toLocaleString()}</span>`;
@@ -173,7 +180,7 @@ async function main() {
         if (!link) return;
 
         const movieId = link.getAttribute("data-movie-id");
-        const movieObj = moviesData.find(movie => movie.id == movieId);
+        const movieObj = moviesData.find(movie => movie.id === parseInt(movieId));
         if (!movieObj) return;
 
         updateOffcanvas(movieObj);
