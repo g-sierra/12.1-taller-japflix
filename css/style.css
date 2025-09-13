@@ -1,30 +1,34 @@
 .img-card-fit {
-    object-fit: cover;
-    width: 100%;
-    height: auto;
+  object-fit: cover;
+  width: 100%;
+  height: auto;
 }
 
 .img-cont {
-    height: 200px;
-    overflow: hidden;
-    background-color: beige;
+  height: 200px;
+  overflow: hidden;
+  background-color: beige;
 }
 
-.card-content{
-    height: 150px;
-    overflow: auto;
+.card-content {
+  height: 150px;
+  overflow: auto;
 }
 
 main {
-    min-height: calc(100vh - 100px);
-  }
-
-.checked{
-    color: orange;
+  min-height: calc(100vh - 100px);
 }
 
-.offcanvas-top{
-    height: fit-content;
+.checked {
+  color: orange;
+}
+
+.offcanvas-top {
+  height: fit-content;
+}
+
+.offcanvas-body {
+  overflow: visible;
 }
 
 .list-group-item {
@@ -32,7 +36,7 @@ main {
 }
 
 .list-group-item:hover {
-  transform: scale(1.01)
+  transform: scale(1.01);
 }
 
 a {
@@ -41,4 +45,10 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+
+#movieMoreInfoOffcanvas li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
 }
