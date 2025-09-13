@@ -78,7 +78,7 @@ function renderMovies(moviesArr) {
             </a>
             <p class="movie-tagline text-muted fst-italic">${movie.tagline}</p>
         </div>
-        <div class="movie-rating">
+        <div class="movie-rating" title="Rating: ${movie.vote_average}/10">
             ${renderStars(movie.vote_average)}
         </div>
         `;
