@@ -44,51 +44,67 @@ function renderStars(rating) {
     return html;
 }
 
-// Inserta li con info de cada pelicula
+// Crea elementos li con la info de las peliculas
+function createListItem(movieObj) {
+    const li = document.createElement("li");
+    li.classList.add(
+        "list-group-item",
+        "bg-dark",
+        "text-white",
+        "d-flex",
+        "justify-content-between",
+        "align-items-center",
+        "border-black"
+    );
+
+    const infoDiv = document.createElement("div");
+    infoDiv.classList.add("movie-info");
+
+    const link = document.createElement("a");
+    link.classList.add("text-white", "movie-link");
+    link.setAttribute("data-bs-toggle", "offcanvas");
+    link.setAttribute("href", "#movieInfoOffcanvas");
+    link.setAttribute("aria-controls", "movieInfoOffcanvas");
+
+    const title = document.createElement("h5");
+    title.classList.add("movie-title", "fw-bold", "mt-2");
+    title.textContent = `${movieObj.title} (${movieObj.release_date.split("-")[0]})`;
+
+    link.appendChild(title);
+
+    const tagline = document.createElement("p");
+    tagline.classList.add("movie-tagline", "text-muted", "fst-italic");
+    tagline.textContent = movieObj.tagline;
+
+    infoDiv.appendChild(link);
+    infoDiv.appendChild(tagline);
+
+    const ratingDiv = document.createElement("div");
+    ratingDiv.classList.add("movie-rating");
+    ratingDiv.setAttribute("title", `Rating: ${movieObj.vote_average}/10`);
+    ratingDiv.innerHTML = renderStars(movieObj.vote_average);
+
+    li.appendChild(infoDiv);
+    li.appendChild(ratingDiv);
+
+    // Evento para actualizar el offcanvas al hacer click en la pelicula
+    link.addEventListener("click", () => updateOffcanvas(movieObj));
+
+    return li;
+}
+
+// Inserta los li en el DOM
 function renderMovies(moviesArr) {
     moviesContainer.innerHTML = "";
     if (moviesArr.length === 0) {
-        moviesContainer.innerHTML = `
-            <p class="fs-4 text-muted text-center">
-                No se encontraron películas que coincidan con la búsqueda.
-            </p>
-        `;
+        const p = document.createElement("p");
+        p.classList.add("fs-4", "text-muted", "text-center");
+        p.textContent = "No se encontraron películas que coincidan con la búsqueda.";
+        moviesContainer.appendChild(p);
         return;
     }
     moviesArr.forEach(movie => {
-        const li = document.createElement("li");
-        li.classList.add(
-            "list-group-item",
-            "bg-dark",
-            "text-white",
-            "d-flex",
-            "justify-content-between",
-            "align-items-center",
-            "border-black"
-        );
-        li.innerHTML = `
-        <div class="movie-info">
-            <a
-                class="text-white movie-link"
-                data-bs-toggle="offcanvas"
-                href="#movieInfoOffcanvas"
-                aria-controls="movieInfoOffcanvas"
-            >
-                <h5 class="movie-title fw-bold mt-2">
-                    ${movie.title} (${movie.release_date.split("-")[0]})
-                </h5>
-            </a>
-            <p class="movie-tagline text-muted fst-italic">${movie.tagline}</p>
-        </div>
-        <div class="movie-rating" title="Rating: ${movie.vote_average}/10">
-            ${renderStars(movie.vote_average)}
-        </div>
-        `;
-
-        // Agrega evento para mostrar info en el offcanvas
-        const link = li.querySelector(".movie-link");
-        link.addEventListener("click", () => updateOffcanvas(movie));
-
+        const li = createListItem(movie);
         moviesContainer.appendChild(li);
     });
 }
