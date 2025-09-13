@@ -65,6 +65,7 @@ function createListItem(movieObj) {
     link.setAttribute("data-bs-toggle", "offcanvas");
     link.setAttribute("href", "#movieInfoOffcanvas");
     link.setAttribute("aria-controls", "movieInfoOffcanvas");
+    link.setAttribute("data-movie-id", movieObj.id);
 
     const title = document.createElement("h5");
     title.classList.add("movie-title", "fw-bold", "mt-2");
@@ -162,8 +163,8 @@ async function main() {
         const link = e.target.closest(".movie-link");
         if (!link) return;
 
-        const movieTitle = link.textContent;
-        const movieObj = moviesData.find(movie => movieTitle.includes(movie.title));
+        const movieId = link.getAttribute("data-movie-id");
+        const movieObj = moviesData.find(movie => movie.id == movieId);
         if (!movieObj) return;
 
         updateOffcanvas(movieObj);
