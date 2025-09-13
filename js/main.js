@@ -47,6 +47,14 @@ function renderStars(rating) {
 // Inserta li con info de cada pelicula
 function renderMovies(moviesArr) {
     moviesContainer.innerHTML = "";
+    if (moviesArr.length === 0) {
+        moviesContainer.innerHTML = `
+            <p class="fs-4 text-muted text-center">
+                No se encontraron películas que coincidan con la búsqueda.
+            </p>
+        `;
+        return;
+    }
     moviesArr.forEach(movie => {
         const li = document.createElement("li");
         li.classList.add(
