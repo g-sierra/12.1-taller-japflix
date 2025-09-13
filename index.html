@@ -8,9 +8,10 @@
 
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <!-- cambio de font awesome a bootstrap icons-->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="css/style.css">
-  
+
 </head>
 
 <body class="bg-dark">
@@ -19,7 +20,8 @@
       <div class="row py-lg-3">
         <div class="col-lg-6 col-md-8 mx-auto">
           <h1 class="fw-light"><img src="img/japflix.png" alt=""></h1>
-          <input type="search" class="form-control" name="buscar" id="inputBuscar" placeholder="Ej.: The Lion King">
+          <input type="search" class="form-control" name="buscar" id="inputBuscar"
+            placeholder="Ej.: The Lion King">
           <button class="btn btn-primary m-2" id="btnBuscar">Buscar</button>
         </div>
       </div>
@@ -29,6 +31,31 @@
       <ul class="list-group container" id="lista">
       </ul>
     </div>
+
+    <div class="offcanvas offcanvas-top" tabindex="-1" id="movieInfoOffcanvas"
+      aria-labelledby="movieTitleOffcanvas">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="movieTitleOffcanvas">Offcanvas</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+          aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <div>
+          Some text as placeholder. In real life you can have the elements you have chosen. Like,
+          text, images, lists, etc.
+        </div>
+        <div class="dropdown mt-3">
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+            Dropdown button
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </main>
 
   <footer class="text-muted py-3">
@@ -36,7 +63,8 @@
       <p class="float-end mb-1">
         <a href="#">Volver arriba</a>
       </p>
-      <p class="mb-1">Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">
+      <p class="mb-1">Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/"
+          target="_blank">
           Jovenes a Programar</a>.
       <p class="mb-1">Generado con fines estrictamente educativos.</p>
     </div>

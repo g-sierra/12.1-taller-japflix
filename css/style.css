@@ -34,3 +34,11 @@ main {
 .list-group-item:hover {
   transform: scale(1.01)
 }
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

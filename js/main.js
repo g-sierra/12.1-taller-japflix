@@ -52,7 +52,9 @@ function renderMovies(moviesArr) {
         );
         li.innerHTML = `
         <div class="movie-info">
-            <h5 class="movie-title fw-bold mt-2">${movie.title}</h5>
+            <a class="text-white" data-bs-toggle="offcanvas" href="#movieInfoOffcanvas" aria-controls="movieInfoOffcanvas">
+                <h5 class="movie-title fw-bold mt-2">${movie.title}</h5>
+            </a>
             <p class="movie-tagline text-muted fst-italic">${movie.tagline}</p>
         </div>
         <div class="movie-rating">
