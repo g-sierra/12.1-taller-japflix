@@ -2,6 +2,14 @@
 const searchInput = document.getElementById("inputBuscar");
 const searchBtn = document.getElementById("btnBuscar");
 const moviesContainer = document.getElementById("lista");
+// Elementos DOM - Offcanvas
+const movieTitleOffcanvas = document.getElementById("movieTitleOffcanvas");
+const movieOverviewOffcanvas = document.getElementById("movieOverviewOffcanvas");
+const movieGenresOffcanvas = document.getElementById("movieGenresOffcanvas");
+const movieYearOffcanvas = document.getElementById("movieYearOffcanvas");
+const movieRuntimeOffcanvas = document.getElementById("movieRuntimeOffcanvas");
+const movieBudgetOffcanvas = document.getElementById("movieBudgetOffcanvas");
+const movieRevenueOffcanvas = document.getElementById("movieRevenueOffcanvas");
 
 // API URL
 const MOVIES_DATA_URL = "https://japceibal.github.io/japflix_api/movies-data.json";
@@ -48,11 +56,11 @@ function renderMovies(moviesArr) {
             "d-flex",
             "justify-content-between",
             "align-items-center",
-            "border-black",
+            "border-black"
         );
         li.innerHTML = `
         <div class="movie-info">
-            <a class="text-white" data-bs-toggle="offcanvas" href="#movieInfoOffcanvas" aria-controls="movieInfoOffcanvas">
+            <a class="text-white movie-link" data-bs-toggle="offcanvas" href="#movieInfoOffcanvas" aria-controls="movieInfoOffcanvas">
                 <h5 class="movie-title fw-bold mt-2">${movie.title}</h5>
             </a>
             <p class="movie-tagline text-muted fst-italic">${movie.tagline}</p>
@@ -61,6 +69,11 @@ function renderMovies(moviesArr) {
             ${renderStars(movie.vote_average)}
         </div>
         `;
+
+        // Agrega evento para mostrar info en el offcanvas
+        const link = li.querySelector(".movie-link");
+        link.addEventListener("click", () => updateOffcanvas(movie));
+
         moviesContainer.appendChild(li);
     });
 }
@@ -84,17 +97,35 @@ function getSearchedMovies(moviesArr, query) {
     return results;
 }
 
+// Muestra la info de la pelicula clickeada en el offcanvas
+function updateOffcanvas(movieObj) {
+    movieTitleOffcanvas.textContent = movieObj.title;
+    movieOverviewOffcanvas.textContent = movieObj.overview;
+    movieGenresOffcanvas.textContent = movieObj.genres.map(genre => genre.name).join(" - ");
+    movieYearOffcanvas.innerHTML = `<span>Year: </span> <span>${movieObj.release_date.split("-")[0]}</span>`;
+    movieRuntimeOffcanvas.innerHTML = `<span>Runtime: </span> <span>${movieObj.runtime} mins</span>`;
+    movieBudgetOffcanvas.innerHTML = `<span>Budget: </span> <span>$${movieObj.budget.toLocaleString()}</span>`;
+    movieRevenueOffcanvas.innerHTML = `<span>Revenue: </span> <span>$${movieObj.revenue.toLocaleString()}</span>`;
+}
+
 // Proceso principal
 async function main() {
     // Carga los datos
     const moviesData = await getData(MOVIES_DATA_URL);
 
-    // Busqueda al hacer click en el boton Buscar
-    searchBtn.addEventListener("click", () => {
+    const handleSearch = () => {
         const query = searchInput.value;
         if (!query) return;
         const results = getSearchedMovies(moviesData, query);
         renderMovies(results);
+    };
+
+    // Busqueda al hacer click en el boton Buscar
+    searchBtn.addEventListener("click", handleSearch);
+
+    // Busqueda al presionar Enter en el input
+    searchInput.addEventListener("keydown", e => {
+        if (e.key === "Enter") handleSearch();
     });
 }
 

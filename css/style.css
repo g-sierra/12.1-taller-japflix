@@ -31,12 +31,18 @@ main {
   overflow: visible;
 }
 
+.offcanvas-footer {
+  padding-top: 1rem;
+  margin-top: 1.5rem;
+}
+
 .list-group-item {
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .list-group-item:hover {
-  transform: scale(1.01);
+  transform: scale(1.005);
+  background-color: var(--bs-gray-dark) !important;
 }
 
 a {
