@@ -14,6 +14,7 @@ const movieRevenueOffcanvas = document.getElementById("movieRevenueOffcanvas");
 // API URL
 const MOVIES_DATA_URL = "https://japceibal.github.io/japflix_api/movies-data.json";
 
+// Funcion para obtener los datos de la API
 async function getData(url) {
     try {
         const res = await fetch(url);
@@ -23,7 +24,17 @@ async function getData(url) {
         return await res.json();
     } catch (e) {
         console.error("Error al cargar los datos:", e);
+        displayMessage("Ocurrió un error al cargar los datos. Por favor, intente nuevamente más tarde.");
     }
+}
+
+// Funcion para mostrar mensajes en el contenedor de peliculas
+function displayMessage(text) {
+    moviesContainer.innerHTML = "";
+    const p = document.createElement("p");
+    p.classList.add("fs-4", "text-muted", "text-center");
+    p.textContent = text;
+    moviesContainer.appendChild(p);
 }
 
 // Transforma el rating de 0 a 10 en estrellas
@@ -91,14 +102,11 @@ function createListItem(movieObj) {
     return li;
 }
 
-// Inserta los li en el DOM
+// Inserta los li en el contenedor de peliculas
 function renderMovies(moviesArr) {
     moviesContainer.innerHTML = "";
     if (moviesArr.length === 0) {
-        const p = document.createElement("p");
-        p.classList.add("fs-4", "text-muted", "text-center");
-        p.textContent = "No se encontraron películas que coincidan con la búsqueda.";
-        moviesContainer.appendChild(p);
+        displayMessage("No se encontraron películas que coincidan con la búsqueda.");
         return;
     }
     moviesArr.forEach(movie => {
@@ -141,6 +149,7 @@ function updateOffcanvas(movieObj) {
 async function main() {
     // Carga los datos
     const moviesData = await getData(MOVIES_DATA_URL);
+    if (!moviesData) return;
 
     // Manejo de la busqueda
     const handleSearch = () => {
