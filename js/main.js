@@ -1,5 +1,6 @@
 // DOM variables
 const searchInput = document.getElementById("inputBuscar");
+const searchBtn = document.getElementById("btnBuscar");
 const moviesContainer = document.getElementById("lista");
 
 // api url
@@ -61,10 +62,30 @@ function renderMovies(moviesArr) {
     });
 }
 
+function getSearchedMovies(moviesArr, query) {
+    const queryLower = query.toLowerCase().trim();
+    const results = moviesArr.filter(movie => {
+        const searchTargets = [
+            movie.title,
+            movie.tagline,
+            movie.overview,
+            ...movie.genres.map(genre => genre.name)
+        ];
+
+        return searchTargets.some(target => target.toLowerCase().includes(queryLower));
+    })
+    return results;
+}
+
 async function main() {
     const moviesData = await getData(MOVIES_DATA_URL);
-    console.log(moviesData);
-    renderMovies(moviesData);
+    searchBtn.addEventListener("click", () => {
+        const query = searchInput.value;
+        if (!query) return;
+        const results = getSearchedMovies(moviesData, query);
+        renderMovies(results);
+    })
+
 }
 
 document.addEventListener("DOMContentLoaded", main);
