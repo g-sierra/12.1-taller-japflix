@@ -55,11 +55,6 @@ function renderStars(rating) {
     return html;
 }
 
-// Funcion para obtener el año de una pelicula
-function getYear(movieObj) {
-    return movieObj.release_date.split("-")[0];
-}
-
 // Crea elementos li con la info de las peliculas
 function createListItem(movieObj) {
     const li = document.createElement("li");
@@ -145,11 +140,24 @@ function updateOffcanvas(movieObj) {
     movieTitleOffcanvas.textContent = movieObj.title;
     movieOverviewOffcanvas.textContent = movieObj.overview;
     movieGenresOffcanvas.textContent = movieObj.genres.map(genre => genre.name).join(" - ");
-    const movieYear = getYear(movieObj);
-    movieYearOffcanvas.innerHTML = `<span>Year: </span> <span>${movieYear}</span>`;
-    movieRuntimeOffcanvas.innerHTML = `<span>Runtime: </span> <span>${movieObj.runtime} mins</span>`;
-    movieBudgetOffcanvas.innerHTML = `<span>Budget: </span> <span>$${movieObj.budget.toLocaleString()}</span>`;
-    movieRevenueOffcanvas.innerHTML = `<span>Revenue: </span> <span>$${movieObj.revenue.toLocaleString()}</span>`;
+    const year = getYear(movieObj);
+    const runtime = `${movieObj.runtime} mins`;
+    const budget = `$${movieObj.budget.toLocaleString()}`;
+    const revenue = `$${movieObj.revenue.toLocaleString()}`;
+    movieYearOffcanvas.innerHTML = labelText("Year", year);
+    movieRuntimeOffcanvas.innerHTML = labelText("Runtime", runtime);
+    movieBudgetOffcanvas.innerHTML = labelText("Budget", budget);
+    movieRevenueOffcanvas.innerHTML = labelText("Revenue", revenue);
+}
+
+// Funcion para obtener el año de una pelicula
+function getYear(movieObj) {
+    return movieObj.release_date.split("-")[0];
+}
+
+// Funcion para los textos con label del offcanvas
+function labelText(label, value) {
+    return `<span>${label}: </span><span>${value}</span>`;
 }
 
 // Proceso principal
