@@ -76,7 +76,7 @@ function createListItem(movieObj) {
     link.setAttribute("data-bs-toggle", "offcanvas");
     link.setAttribute("href", "#movieInfoOffcanvas");
     link.setAttribute("aria-controls", "movieInfoOffcanvas");
-    link.setAttribute("data-movie-id", movieObj.id);
+    link.dataset.movieId = movieObj.id;
 
     const title = document.createElement("h5");
     const movieYear = getYear(movieObj);
@@ -187,7 +187,7 @@ async function main() {
         const link = e.target.closest(".movie-link");
         if (!link) return;
 
-        const movieId = link.getAttribute("data-movie-id");
+        const movieId = link.dataset.movieId;
         const movieObj = moviesData.find(movie => movie.id === parseInt(movieId));
         if (!movieObj) return;
 
