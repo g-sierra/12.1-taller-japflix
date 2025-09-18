@@ -63,9 +63,12 @@ function createListItem(movieObj) {
         "bg-dark",
         "text-white",
         "d-flex",
+        "flex-column",
+        "flex-md-row",
         "justify-content-between",
-        "align-items-center",
-        "border-black"
+        "align-items-start",
+        "align-items-md-center",
+        "border-black",
     );
 
     const infoDiv = document.createElement("div");
